@@ -8,6 +8,7 @@
     "cra-template": "1.2.0",
     "exif-js": "^2.3.0",
     "firebase": "^11.3.0",
+    "lucide-react": "^0.475.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",

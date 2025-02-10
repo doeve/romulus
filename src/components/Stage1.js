@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
-import EXIF from 'exif-js';
-import { CheckCircle, MapPin } from "@phosphor-icons/react";
-
+import React, { useState, useEffect } from 'react';
+import { CheckCircle, Camera } from 'lucide-react';
 
 const Stage1 = ({ setCurrentStage }) => {
-  const [answer, setAnswer] = useState('');
-  const [file, setFile] = useState(null);
+  const [answer, setAnswer] = useState('umbilicus urbis romae');
   const [success, setSuccess] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (success) {
+      const watchId = navigator.geolocation.watchPosition(
+        (position) => {
+          setCurrentLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          });
+        },
+        (error) => setError('Please enable location services to continue.'),
+        { enableHighAccuracy: true }
+      );
+
+      return () => navigator.geolocation.clearWatch(watchId);
+    }
+  }, [success]);
 
   const checkRiddle = (e) => {
     e.preventDefault();
@@ -15,86 +31,92 @@ const Stage1 = ({ setCurrentStage }) => {
     }
   };
 
-  const handleUpload = async () => {
-    EXIF.getData(file, async function() {
-      const lat = EXIF.getTag(this, 'GPSLatitude');
-      const lng = EXIF.getTag(this, 'GPSLongitude');
-      
-      if (lat && lng) {
-        const decimalLat = lat[0] + lat[1]/60 + lat[2]/3600;
-        const decimalLng = lng[0] + lng[1]/60 + lng[2]/3600;
-        
-        // Coordinates for Umbilicus Urbis Romae
-        const targetLat = 41.892766; 
-        const targetLng = 12.484580;
-        
-        if (Math.abs(decimalLat - targetLat) < 0.001 && 
-            Math.abs(decimalLng - targetLng) < 0.001) {
-          localStorage.setItem('treasureHuntStage', 2);
-          setCurrentStage(2);
-        }
-      }
-    });
+  const verifyLocation = async () => {
+    if (!currentLocation) return;
+
+    // Target coordinates for Umbilicus Urbis Romae
+    const targetLat = 41.892766;
+    const targetLng = 12.484580;
+    
+    // Calculate distance
+    const R = 6371e3;
+    const φ1 = currentLocation.latitude * Math.PI/180;
+    const φ2 = targetLat * Math.PI/180;
+    const Δφ = (targetLat - currentLocation.latitude) * Math.PI/180;
+    const Δλ = (targetLng - currentLocation.longitude) * Math.PI/180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const distance = R * c;
+
+    if (distance < 10) {
+      localStorage.setItem('treasureHuntStage', 2);
+      setCurrentStage(2);
+    } else {
+      setError('You need to be closer to the location. Follow the glowing marker!');
+    }
   };
 
-  return (
-    <div className="stage-card">
-      <h2 className="section-title">Stage I • Navel of Rome</h2>
+  if (!success) {
+    return (
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="bg-white/95 rounded-lg p-8 max-w-md w-full">
+          <h2 className="text-2xl font-serif text-center mb-6 text-oxide">
+            Stage I • Navel of Rome
+          </h2>
+          
+          <div className="mb-8 text-center">
+            <p className="text-lg mb-4">
+              I mark Rome's beating heart,<br />
+              Where all roads meet and journeys start.<br />
+              Augustus' measure, world's center true,<br />
+              Seek the stone that emperors knew.
+            </p>
+          </div>
       
-      <div className="riddle-section">
-        <p className="riddle-text">
-          I mark Rome's beating heart,<br />
-          Where all roads meet and journeys start.<br />
-          Augustus' measure, world's center true,<br />
-          Seek the stone that emperors knew.
-        </p>
-      </div>
-  
-      <form onSubmit={checkRiddle}>
-        <input
-          className="input-field"
-          type="text" 
-          value={answer}
-          onChange={(e) => setAnswer(e.target.value)}
-          placeholder="Enter the Latin name..."
-        />
-        <button className="btn-primary" type="submit">
-          <CheckCircle size={20} weight="light" />
-          Verify Answer
-        </button>
-      </form>
-  
-      {success && (
-        <div className="upload-section">
-          <p className="instruction-text">
-            Capture the sacred site's current state. Ensure GPS is enabled.
-          </p>
-          
-          <input 
-            type="file" 
-            id="upload-file"
-            accept="image/*" 
-            onChange={(e) => setFile(e.target.files[0])}
-            hidden
-          />
-
-          <label htmlFor="upload-file" className="file-input-label">
-            <MapPin size={20} weight="light" className="map-pin"/>
-            {file ? file.name : 'Select Image'}
-          </label>
-          
-          {file && (
-            <button
-              className="btn-primary"
-              onClick={handleUpload}
-              style={{ marginTop: '1rem' }}
+          <form onSubmit={checkRiddle} className="space-y-4">
+            <input
+              className="w-full px-4 py-3 rounded-lg border border-gold/30 focus:border-gold focus:ring-2 focus:ring-gold/20 bg-white/90"
+              type="text" 
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              placeholder="Enter the Latin name..."
+            />
+            <button 
+              className="w-full flex items-center justify-center gap-2 bg-gold hover:bg-oxide text-white py-3 px-6 rounded-lg transition-colors"
+              type="submit"
             >
-              <MapPin size={20} weight="light" />
-              Verify Location
+              <CheckCircle size={20} />
+              Verify Answer
             </button>
-          )}
+          </form>
         </div>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white/95 rounded-lg p-6">
+      <div className="space-y-4">
+        <p className="text-center text-lg">
+          Great! Now follow the glowing marker to find the ancient site.
+          The marker will become brighter as you get closer.
+        </p>
+        
+        {error && (
+          <p className="text-red-500 text-center text-sm">{error}</p>
+        )}
+
+        <button
+          className="w-full flex items-center justify-center gap-2 bg-gold hover:bg-oxide text-white py-3 px-6 rounded-lg transition-colors"
+          onClick={verifyLocation}
+        >
+          <Camera size={20} />
+          Verify Location
+        </button>
+      </div>
     </div>
   );
 };
