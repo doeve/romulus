@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/romulus/static/css/main.da6907b5.css",
-    "main.js": "/romulus/static/js/main.da603b64.js",
+    "main.css": "/romulus/static/css/main.bce5a564.css",
+    "main.js": "/romulus/static/js/main.b45be114.js",
     "static/js/488.383c72f8.chunk.js": "/romulus/static/js/488.383c72f8.chunk.js",
     "index.html": "/romulus/index.html",
-    "main.da6907b5.css.map": "/romulus/static/css/main.da6907b5.css.map",
-    "main.da603b64.js.map": "/romulus/static/js/main.da603b64.js.map",
+    "main.bce5a564.css.map": "/romulus/static/css/main.bce5a564.css.map",
+    "main.b45be114.js.map": "/romulus/static/js/main.b45be114.js.map",
     "488.383c72f8.chunk.js.map": "/romulus/static/js/488.383c72f8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.da6907b5.css",
-    "static/js/main.da603b64.js"
+    "static/css/main.bce5a564.css",
+    "static/js/main.b45be114.js"
   ]
 }
