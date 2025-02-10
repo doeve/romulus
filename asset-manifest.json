@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/doeve/romulus/static/css/main.da6907b5.css",
+    "main.js": "/doeve/romulus/static/js/main.c11a9736.js",
+    "static/js/488.383c72f8.chunk.js": "/doeve/romulus/static/js/488.383c72f8.chunk.js",
+    "index.html": "/doeve/romulus/index.html",
+    "main.da6907b5.css.map": "/doeve/romulus/static/css/main.da6907b5.css.map",
+    "main.c11a9736.js.map": "/doeve/romulus/static/js/main.c11a9736.js.map",
+    "488.383c72f8.chunk.js.map": "/doeve/romulus/static/js/488.383c72f8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.da6907b5.css",
+    "static/js/main.c11a9736.js"
+  ]
+}
