@@ -1,0 +1,25 @@
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes scrollUnroll {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+  
+  .ancient-scroll {
+    animation: scrollUnroll 0.8s ease-out;
+  }
+  
+  .stage-container {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .roman-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .roman-button:active {
+    transform: scale(0.95);
+  }

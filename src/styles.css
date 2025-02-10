@@ -1,0 +1,231 @@
+:root {
+    --parchment: #f8f5f0;
+    --gold: #b59f6d;
+    --oxide: #6e4c4b;
+    --stone: #4a4a4a;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  body {
+    background: var(--parchment) url('https://www.transparenttextures.com/patterns/cream-paper.png');
+    font-family: 'Crimson Pro', serif;
+    color: var(--stone);
+    line-height: 1.6;
+    min-height: 100vh;
+    margin: 0;
+    padding: 1rem;
+  }
+  
+  .app-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Modern Typography */
+  .header {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: var(--oxide);
+    letter-spacing: 0.05em;
+    margin: 2rem 0;
+    text-transform: lowercase;
+    position: relative;
+    text-align: center;
+  }
+  
+  .header::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 1rem auto;
+  }
+  
+  .section-title {
+    font-family: 'Playfair Display';
+    font-weight: 500;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--oxide);
+    margin: 2rem 0 1rem;
+  }
+  
+  /* Modern Cards */
+  .stage-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(181, 159, 109, 0.15);
+  }
+  
+  /* Minimalist Inputs */
+  .input-field {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.8rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(181, 159, 109, 0.3);
+    border-radius: 8px;
+    font-family: 'Crimson Pro';
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(181, 159, 109, 0.1);
+  }
+  
+  /* Sleek Buttons */
+  .btn-primary {
+    background: var(--gold);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-family: 'Crimson Pro';
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--shadow);
+  }
+  
+  .btn-primary:hover {
+    background: var(--oxide);
+    transform: translateY(-1px);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+  
+  /* Modern Progress Tracker */
+  .progress-tracker {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  
+  .progress-step {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display';
+    font-size: 0.9rem;
+    background: white;
+    color: var(--gold);
+    transition: all 0.3s ease;
+  }
+  
+  .progress-step.active {
+    background: var(--gold);
+    color: white;
+  }
+  
+  /* Upload Section */
+  .upload-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(181, 159, 109, 0.2);
+  }
+  
+  .file-input-label {
+    display: inline-block;
+    background: white;
+    color: var(--stone);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid rgba(181, 159, 109, 0.3);
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+  }
+  
+  .file-input-label:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .error-text {
+    color: #b00020;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .completion-card {
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  
+  .success-animation {
+    animation: float 3s ease-in-out infinite;
+    margin: 2rem auto;
+  }
+  
+  .success-icon {
+    color: var(--gold);
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  .completion-card .section-title {
+    margin: 1.5rem 0;
+  }
+  
+  .completion-card .instruction-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .map-pin {
+    margin-bottom: -5px;
+    margin-right: 5px;
+  }
+  
+  /* Animations */
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .stage-card {
+    animation: slideIn 0.4s ease-out;
+  }
+  
+  @media (max-width: 480px) {
+    body {
+      padding: 0.5rem;
+    }
+    
+    .stage-card {
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+  }
