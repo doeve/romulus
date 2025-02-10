@@ -1,7 +1,7 @@
 {
   "name": "treasure-hunt",
   "version": "0.1.0",
-  "homepage": "https://github.com/doeve/romulus",
+  "homepage": " https://doeve.github.io/romulus",
   "private": true,
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
